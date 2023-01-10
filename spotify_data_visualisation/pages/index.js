@@ -1,33 +1,53 @@
-import { useState } from 'react';
-import Link from 'next/link';
+import {useSession, signIn, signOut} from 'next-auth/react';
+import {useState} from 'react';
 
-function Header({ title }) {
-  return <h1>{title ? title : 'Default title'}</h1>;
-}
+export default function Home() {
+  const {data: session} = useSession();
+  const [list, setList] = useState([]);
+  const [listTracks, setListTracks] = useState([])
 
-export default function HomePage() {
-  const names = ['David Gomez', 'Matthew Celentano', 'Christopher Quiñones'];
+  const getMyPlaylists = async () => {
+    const res = await fetch('/api/playlists');
+    const {items} = await res.json();
+    setList(items);
+  };
 
-  const [likes, setLikes] = useState(0);
+  const getMyTracks = async () => {
+    const res = await fetch('/api/tracks');
+    const {items} = await res.json();
+    console.log(items)
+    setListTracks(items);
+  };
 
-  function handleClick() {
-    setLikes(likes + 1);
-  }
+  
 
-  return (
-    <div>
-      <Header title="Develop. Preview. Ship. 🚀" />
-      <ul>
-        {names.map((name) => (
-          <li key={name}>{name}</li>
+
+  if (session) {
+    return (
+      <>
+        Signed in as {session?.token?.email} <br />
+        <button onClick={() => signOut()}>Sign out</button>
+        <hr />
+        <button onClick={() => getMyPlaylists()}>Get all my playlists</button>
+        <button onClick={() => getMyTracks()}>Get all my tracks</button>
+        {list.map((item) => (
+          <div key={item.id}>
+            <h1>{item.name}</h1>
+            <img src={item.images[0]?.url} width="100" />
+          </div>
         ))}
-      </ul>
-
-      <button onClick={handleClick}>Like ({likes})</button>
-      <h1>
-        Read <Link href="/login">LOGIN</Link>
-      </h1>
-    </div>
+        {listTracks.map((item) => (
+          <div key={item.track.name}>
+            <h1>{item.track.name}</h1>
+          </div>
+        ))}
+      </>
+    );
+  }
+  return (
+    <>
+      Not signed in <br />
+      <button onClick={() => signIn()}>Sign in</button>
+    </>
   );
 }
-
