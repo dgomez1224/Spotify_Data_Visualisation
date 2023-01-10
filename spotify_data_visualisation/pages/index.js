@@ -14,8 +14,7 @@ export default function Home() {
 
   const getMyTracks = async () => {
     const res = await fetch('/api/tracks');
-    const {items} = await res.json();
-    console.log(items)
+    const {items} = await res.json()
     setListTracks(items);
   };
 
