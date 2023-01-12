@@ -1,0 +1,28 @@
+html{
+    scroll-behavior: smooth;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-image: url(../public/images/SpotifyHomepage.jpg);
+    color: white ;
+    margin-bottom: 12;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    height: 100%;
+}
+
+body{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 25%;
+}
+
+.image{
+    
+  float: right;
+  padding-bottom: 150px;
+  justify-content: center;
+  flex-direction: row;
+
+}
