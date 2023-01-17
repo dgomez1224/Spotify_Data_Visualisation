@@ -11,18 +11,4 @@ html{
     height: 100%;
 }
 
-body{
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    margin-top: 25%;
-}
 
-.image{
-    
-  float: right;
-  padding-bottom: 150px;
-  justify-content: center;
-  flex-direction: row;
-
-}

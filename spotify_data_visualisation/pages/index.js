@@ -1,13 +1,23 @@
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useState, useEffect } from 'react'
-
 import Image from 'next/image'
 import Head from 'next/head'
 import LoginButton from '../components/LoginButton'
 import LeftText from '../components/LeftText'
 import RightText from '../components/RightText'
+import spotifyLogoImg from '../public/images/spotifyLogo.png'
+import LoginText from '../components/LoginText'
+import FullData from '../components/FullData'
+import {
+  CardImage,
+  CardWrapper,
+  CardTextTitle,
+  CardContainer,
+  Separator,
+} from '../components/Cards'
+import { SignedIn , SignInMessage, NavButtons} from '../components/SignedIn'
 
-export default function Home() {
+export default function Card() {
   const { data: session } = useSession()
   const [listPlaylists, setListPlaylists] = useState([])
   const [listTracks, setListTracks] = useState([])
@@ -34,31 +44,19 @@ export default function Home() {
     getMyTracks()
   }, [])
 
-  /* 
-
-This function should create an array of objects where the key is the arist and the value is the total number of times the artist appears in the users library. Using this array we should be able to splice the top 10 or so results to use as inputs in a graphing framework.
-*/
-
-  // function tallyArtists(artists = []) {
-  //   const tally = {}
-
-  //   artists.forEach((key) => {
-  //     tally[key] = tally[key] ? tally[key] + 1 : 1
-  //   })
-  //   console.log(tally.splice(0, 10))
-  //   return tally.splice(0, 10)
-  // }
-
-  // console.log('show top artists ', showArtists)
-  // console.log('artists ', topArtists)
+  console.log({ 'top artists': topArtists })
 
   if (session) {
     return (
       <>
-        Signed in as {session?.token?.email} <br />
+      <SignedIn>
+        <SignInMessage>
+        Signed in as {session?.token?.email}</SignInMessage> <br />
         <LoginButton onClick={() => signOut()}>Sign out</LoginButton>
-        <hr />
-        <button
+        </SignedIn>
+        <br />
+        <NavButtons>
+        <LoginButton
           onClick={() => {
             setShowTracks(false)
             setShowArtists(false)
@@ -66,8 +64,8 @@ This function should create an array of objects where the key is the arist and t
           }}
         >
           Get all my playlists
-        </button>
-        <button
+        </LoginButton>
+        <LoginButton
           onClick={() => {
             setShowPlaylists(false)
             setShowArtists(false)
@@ -75,8 +73,8 @@ This function should create an array of objects where the key is the arist and t
           }}
         >
           Get all my tracks
-        </button>
-        <button
+        </LoginButton>
+        <LoginButton
           onClick={() => {
             setShowTracks(false)
             setShowPlaylists(false)
@@ -84,48 +82,56 @@ This function should create an array of objects where the key is the arist and t
           }}
         >
           Get my top artists
-        </button>
-        {showPlaylists
-          ? listPlaylists.map((item) => (
-              <div key={item.id}>
-                <h1>{item.name}</h1>
-                <img src={item.images[0]?.url} width="100" />
-              </div>
-            ))
-          : null}
-        {showTracks
-          ? listTracks.map((item) => (
-              <div key={item.track.name}>
-                <h1>{item.track.name}</h1>
-              </div>
-            ))
-          : null}
-        {showArtists
-          ? topArtists.map((item) => (
-              <div key={item.track.artists[0].name}>
-                <h1>{item.track.artists[0].name}</h1>
-              </div>
-            ))
-          : null}
+        </LoginButton>
+        </NavButtons>
+        <FullData>
+          {showPlaylists
+            ? listPlaylists.map((item) => (
+                <CardWrapper>
+                  <CardImage img={item.images[0]?.url} />
+                  <CardTextTitle>{item.name}</CardTextTitle>
+                </CardWrapper>
+              ))
+            : null}
+
+          {showTracks
+            ? listTracks.map((item) => (
+                <CardWrapper>
+                  <CardImage img={item.track.album.images[0]?.url} />
+                  <CardTextTitle>{item.track.name}</CardTextTitle>
+                </CardWrapper>
+              ))
+            : null}
+
+          {showArtists
+            ? topArtists.map((item) => (
+                <CardWrapper>
+                  <div key={item.track.artists[0].name}>
+                    <CardTextTitle>{item.track.artists[0].name}</CardTextTitle>
+                  </div>
+                </CardWrapper>
+              ))
+            : null}
+        </FullData>
       </>
     )
   }
   return (
     <>
       <LeftText>
-        <h1> Welcome to my Spotify Data Visualization website!</h1>
+        <h1> Spotify Data Visualization Website</h1>
         <h2> To login press the login button.</h2>
       </LeftText>
       <br />
       <div>
-        <Image
-          className=".image"
-          src="/public/images/logo512.png"
-          alt="Spotify Logo"
-          width={100}
-          height={100}
-        />
         <RightText>
+          <Image
+            src={spotifyLogoImg}
+            alt="Spotify Logo"
+            width={150}
+            height={150}
+          />
+
           <LoginButton onClick={() => signIn()}>Login</LoginButton>
         </RightText>
       </div>

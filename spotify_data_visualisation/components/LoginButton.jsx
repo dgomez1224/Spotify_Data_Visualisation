@@ -7,7 +7,10 @@ const LoginButton = styled.button`
   color: white;
   padding: 15px 32px;
   text-align: center;
-  display: inline-block;
-  font-size: 16px;
+  font-size: 20px;
+  &:hover {
+    background-color: grey;
+    font-size: 22px;
+
   `
 export default LoginButton;
