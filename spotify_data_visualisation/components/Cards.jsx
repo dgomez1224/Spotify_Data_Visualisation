@@ -3,12 +3,13 @@ import styled from "styled-components";
 export const CardWrapper = styled.div`
   display: grid;
   grid-template-columns: 300px;
-  grid-template-rows: 210px 210px 80px;
-  grid-template-areas: "image" "text" "stats";
+  grid-template-rows: 210px 290px;
+  grid-template-areas: "image" "text";
   border-radius: 18px;
-  background: #000;
+  background: black;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
   text-align: center;
+  overflow: scroll; 
 `;
 
 export const CardImage = styled.div`
@@ -21,28 +22,61 @@ export const CardImage = styled.div`
 
 export const CardTextTitle = styled.h2`
   margin-top: 0px;
-  font-size: 2rem;
+  font-size: 130%;
   box-sizing: border-box;
   min-width: 0px;
   line-height: 1.2;
   margin: 0px;
   background-clip: text;
   -webkit-background-clip: text;
-  color: green;
+  color: white;
+  padding: 30px 10px 0px 10px;
+
+`;
+
+export const CardTextBody = styled.p`
+  color: grey;
+  font-size: 1.2rem;
+  font-weight: 300;
+  padding: 0px 10px;
+`;
+
+export const CardTextWrapper = styled.div`
+  grid-area: text;
 `;
 
 export const CardContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #1f2229;
-  overflow: hidden;
+  flex-direction: row wrap;
+  background: transparent;
+  
+  padding: 10px 0px;
 `;
 
-export const Separator = styled.span`
-margin-left: 10px;
-margin-right: 10px;
-`;
+export const SpotifyLink = styled.a`
+color: white;
+text-decoration: none;
+&:hover {
+    color: blue;
+    font-size: ${props => props.size ? props.size : "1.5rem" };
+  }
+`
+
+export const GenreList = styled.ul`
+    list-style-position: inside;
+    display:flex;
+    justify-content: space-evenly;
+    flex-flow: column;
+    padding: 0px;
+    font-size: 70%;
+`
+
+export const GenreItems = styled.li`
+
+  padding: 2px 0px;
+
+`
 
