@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { device } from '../styles/device'
 
-const RightText = styled.div`
+export const RightText = styled.div`
     display:flex;
     flex-direction: column;
     margin-top: 20%;
@@ -11,4 +11,8 @@ const RightText = styled.div`
     justify-content: space-between;
 
 `
-export default RightText;
+export const RightTextPadding = styled.div`
+
+  padding: 20px 0px;
+  
+`

@@ -11,6 +11,6 @@ const LoginButton = styled.button`
   &:hover {
     background-color: grey;
     font-size: 22px;
-
+  }
   `
 export default LoginButton;
