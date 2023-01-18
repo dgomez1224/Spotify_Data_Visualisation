@@ -3,7 +3,8 @@ const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 const PLAYLISTS_ENDPOINT = 'https://api.spotify.com/v1/me/playlists';
-const TRACKS_ENDPOINT = 'https://api.spotify.com/v1/me/tracks'
+const TRACKS_ENDPOINT = 'https://api.spotify.com/v1/me/top/tracks?limit=50';
+const ARTISTS_ENDPOINT = 'https://api.spotify.com/v1/me/top/artists?limit=50';
 
 const getAccessToken = async (refresh_token) => {
     const response = await fetch(TOKEN_ENDPOINT, {
@@ -37,4 +38,13 @@ export const getUsersTracks = async (refresh_token) => {
       Authorization: `Bearer ${access_token}`,
     },
   });
+}
+
+export const getUsersArtists = async (refresh_token) => {
+  const {access_token} = await getAccessToken(refresh_token);
+  return fetch(ARTISTS_ENDPOINT, {
+  headers: {
+    Authorization: `Bearer ${access_token}`,
+  },
+});
 }
