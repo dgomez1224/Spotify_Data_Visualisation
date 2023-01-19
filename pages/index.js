@@ -206,7 +206,7 @@ export default function Card() {
               />
             </RightTextPadding>
             <RightTextPadding>
-              <LoginButton onClick={() => signIn()}>Login</LoginButton>
+              <LoginButton data-cy= "login" onClick={() => signIn()}>Login</LoginButton>
             </RightTextPadding>
           </RightText>
         </div>
